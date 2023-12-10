@@ -1,0 +1,65 @@
+/*script goes here*/
+body{
+  display:flex;
+  flex-direction:column;
+}
+#calculator{
+  display:flex;
+  flex-direction:column;
+  border: 5px solid black;
+  padding:10px;
+}
+#display{
+  height:75px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  align-items:stretch;
+}
+#history{
+  font-size:15px;
+  display:flex;
+  justify-content:flex-end;
+  background-color:#DDDDDD;
+  margin:0px 1px 0px 1px;
+  padding-right:5px;
+}
+#current{
+  font-size:40px;
+  display:flex;
+  justify-content:flex-end;
+  background-color:#DDDDDD;
+  margin:2px 1px 1px 1px;
+  padding-right:5px;
+}
+#buttons{
+  display:flex;
+  flex-direction:column;
+  justify-items:space-between;
+}
+#row1{
+  display:flex;
+}
+#row2{
+  display:flex;
+}
+#row3{
+  display:flex;
+}
+#row4{
+  display:flex;
+}
+#row5{
+  display:flex;
+}
+button{
+  display:flex;
+  flex:1;
+  font-size:15px;
+  margin:1px;
+  padding:2px
+}
+#zeroButton{
+  flex:2.25;
+}
+

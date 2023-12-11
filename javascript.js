@@ -25,6 +25,7 @@ const equal=document.getElementById("equalButton");
 let historyDisplay="0";
 let currentDisplay="0";
 let defaultDisplay=0;
+let theAnswer=0;
 function updateDisplay(){
   if(currentDisplay[0]==="0"&&currentDisplay[1]!=null){
     currentDisplay=currentDisplay.substring(1);
@@ -33,7 +34,11 @@ function updateDisplay(){
   current.textContent=currentDisplay;
 }
 function updateHistory(input){
-  if(historyDisplay==="0"){
+  if(input==="equal"){
+    currentDisplay=theAnswer;
+    updateDisplay();
+  }  
+  else if(historyDisplay==="0"){
     historyDisplay=currentDisplay.concat(input);
     currentDisplay="0";
     updateDisplay();
@@ -117,6 +122,64 @@ decimal.addEventListener('click',()=>{
   updateDisplay();
 });
 equal.addEventListener('click',()=>{
-  //calculate
-  updateDisplay();
+  historyDisplay=historyDisplay.concat(currentDisplay);
+  let work=historyDisplay.split(" ");
+  console.log(work);
+  let pos=0;
+  let ans=0;
+//calculate
+  while(work.includes("*")){    
+    pos=work.indexOf("*");
+    ans=work[pos-1]*work[pos+1];
+    console.log("pos= "+pos);
+    console.log("first number= "+work[pos-1]);
+    console.log("second number= "+work[pos+1]);
+    console.log("ans= "+ans);
+    work.splice(pos-1,3,ans);
+    console.log("work= "+work);
+    console.log("***");
+    console.log("new Work= "+work);
+    console.log("***");
+  }
+  while(work.includes("/")){    
+    pos=work.indexOf("/");
+    ans=work[pos-1]/work[pos+1];
+    console.log("pos= "+pos);
+    console.log("first number= "+work[pos-1]);
+    console.log("second number= "+work[pos+1]);
+    console.log("ans= "+ans);
+    work.splice(pos-1,3,ans);
+    console.log("work= "+work);
+    console.log("***");
+    console.log("new Work= "+work);
+    console.log("***");
+  }
+  while(work.includes("+")){    
+    pos=work.indexOf("+");
+    ans=work[pos-1]+work[pos+1];
+    console.log("pos= "+pos);
+    console.log("first number= "+work[pos-1]);
+    console.log("second number= "+work[pos+1]);
+    console.log("ans= "+ans);
+    work.splice(pos-1,3,ans);
+    console.log("work= "+work);
+    console.log("***");
+    console.log("new Work= "+work);
+    console.log("***");
+  }
+  while(work.includes("-")){    
+    pos=work.indexOf("-");
+    ans=work[pos-1]-work[pos+1];
+    console.log("pos= "+pos);
+    console.log("first number= "+work[pos-1]);
+    console.log("second number= "+work[pos+1]);
+    console.log("ans= "+ans);
+    work.splice(pos-1,3,ans);
+    console.log("work= "+work);
+    console.log("***");
+    console.log("new Work= "+work);
+    console.log("***");
+  }
+  theAnswer=String(work[0]);
+  updateHistory("equal");
 });

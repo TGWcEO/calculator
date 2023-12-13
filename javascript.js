@@ -1,7 +1,8 @@
 /*javascripts goes here*/
-/*buttons*/
+//create buttons
 const history=document.getElementById("history");
 const current=document.getElementById("current");
+const zero=document.getElementById("zeroButton");
 const one=document.getElementById("oneButton");
 const two=document.getElementById("twoButton");
 const three=document.getElementById("threeButton");
@@ -21,11 +22,12 @@ const plus=document.getElementById("plusButton");
 const decimal=document.getElementById("decimalButton");
 const equal=document.getElementById("equalButton");
 
-/*displays*/
+//functions manipulate and correctly organize the display
 let historyDisplay="0";
 let currentDisplay="0";
 let defaultDisplay=0;
 let theAnswer=0;
+let atTheEnd=false;
 function updateDisplay(){
   if(currentDisplay[0]==="0"&&currentDisplay[1]!=null){
     currentDisplay=currentDisplay.substring(1);
@@ -37,8 +39,14 @@ function updateHistory(input){
   if(input==="equal"){
     currentDisplay=theAnswer;
     updateDisplay();
-  }  
-  else if(historyDisplay==="0"){
+    atTheEnd=true;
+  }else if(atTheEnd==true){
+    atTheEnd=false;
+    historyDisplay=theAnswer.concat(input);
+    currentDisplay="0";
+    theAnswer=0;
+    updateDisplay();
+  }else if(historyDisplay==="0"){
     historyDisplay=currentDisplay.concat(input);
     currentDisplay="0";
     updateDisplay();
@@ -48,57 +56,64 @@ function updateHistory(input){
     currentDisplay="0";
     updateDisplay();
   }
+}function updateCurrent(input){
+  if(atTheEnd==true){
+    atTheEnd=false;
+    historyDisplay="0";
+    currentDisplay=input;
+  }else{
+    currentDisplay=currentDisplay.concat(input);
+  }
+  updateDisplay();
 }
 
-/*number button listeners*/
+//number button listeners
+zero.addEventListener('click',()=>{
+  updateCurrent("0");
+});
 one.addEventListener('click',()=>{
-  currentDisplay=currentDisplay.concat("1");
-  updateDisplay();
+  updateCurrent("1");
 });
 two.addEventListener('click',()=>{
-  currentDisplay=currentDisplay.concat("2");
-  updateDisplay();
+  updateCurrent("2");
 });
 three.addEventListener('click',()=>{
-  currentDisplay=currentDisplay.concat("3");
-  updateDisplay();
+  updateCurrent("3");
 });
 four.addEventListener('click',()=>{
-  currentDisplay=currentDisplay.concat("4");
-  updateDisplay();
+  updateCurrent("4");
 });
 five.addEventListener('click',()=>{
-  currentDisplay=currentDisplay.concat("5");
-  updateDisplay();
+  updateCurrent("5");
 });
 six.addEventListener('click',()=>{
-  currentDisplay=currentDisplay.concat("6");
-  updateDisplay();
+  updateCurrent("6");
 });
 seven.addEventListener('click',()=>{
-  currentDisplay=currentDisplay.concat("7");
-  updateDisplay();
+  updateCurrent("7");
 });
 eight.addEventListener('click',()=>{
-  currentDisplay=currentDisplay.concat("8");
-  updateDisplay();
+  updateCurrent("8");
 });
 nine.addEventListener('click',()=>{
-  currentDisplay=currentDisplay.concat("9");
-  updateDisplay();
+  updateCurrent("9");
 });
 
-/*math button listeners*/
+//math button listeners
 ac.addEventListener('click',()=>{
   if(currentDisplay==="0"){
     historyDisplay="0";
   }else{
     currentDisplay="0";
   }
+  theAnswer=0;
   updateDisplay();
 });
 negative.addEventListener('click',()=>{
-  //change current to a negative number
+  currentDisplay=String(0-currentDisplay);
+  if(theAnswer!==0){
+    theAnswer=currentDisplay;
+  }
   updateDisplay();
 });
 percent.addEventListener('click',()=>{
@@ -117,68 +132,42 @@ plus.addEventListener('click',()=>{
   updateHistory(" + ");
 });
 decimal.addEventListener('click',()=>{
-  //is there already a decimal? dont add one : add one
-  currentDisplay=currentDisplay.concat(".");
-  updateDisplay();
+  //if statement prevents more than one decimal being used
+  if(!currentDisplay.includes(".")){
+    currentDisplay=currentDisplay.concat(".");
+    updateDisplay();
+  }
 });
 equal.addEventListener('click',()=>{
   historyDisplay=historyDisplay.concat(currentDisplay);
   let work=historyDisplay.split(" ");
-  console.log(work);
   let pos=0;
   let ans=0;
-//calculate
-  while(work.includes("*")){    
+  //these next 5 while statements calculate the equation
+  while(work.includes("%")){
+    pos=work.indexOf("%");
+    ans=work[pos-1]*(work[pos+1]/100);
+    work.splice(pos-1,3,ans);
+  }
+  while(work.includes("*")){
     pos=work.indexOf("*");
     ans=work[pos-1]*work[pos+1];
-    console.log("pos= "+pos);
-    console.log("first number= "+work[pos-1]);
-    console.log("second number= "+work[pos+1]);
-    console.log("ans= "+ans);
     work.splice(pos-1,3,ans);
-    console.log("work= "+work);
-    console.log("***");
-    console.log("new Work= "+work);
-    console.log("***");
   }
-  while(work.includes("/")){    
+  while(work.includes("/")){
     pos=work.indexOf("/");
     ans=work[pos-1]/work[pos+1];
-    console.log("pos= "+pos);
-    console.log("first number= "+work[pos-1]);
-    console.log("second number= "+work[pos+1]);
-    console.log("ans= "+ans);
     work.splice(pos-1,3,ans);
-    console.log("work= "+work);
-    console.log("***");
-    console.log("new Work= "+work);
-    console.log("***");
   }
-  while(work.includes("+")){    
+  while(work.includes("+")){
     pos=work.indexOf("+");
-    ans=work[pos-1]+work[pos+1];
-    console.log("pos= "+pos);
-    console.log("first number= "+work[pos-1]);
-    console.log("second number= "+work[pos+1]);
-    console.log("ans= "+ans);
+    ans=Number(work[pos-1])+Number(work[pos+1]);
     work.splice(pos-1,3,ans);
-    console.log("work= "+work);
-    console.log("***");
-    console.log("new Work= "+work);
-    console.log("***");
   }
-  while(work.includes("-")){    
+  while(work.includes("-")){
     pos=work.indexOf("-");
     ans=work[pos-1]-work[pos+1];
-    console.log("pos= "+pos);
-    console.log("first number= "+work[pos-1]);
-    console.log("second number= "+work[pos+1]);
-    console.log("ans= "+ans);
     work.splice(pos-1,3,ans);
-    console.log("work= "+work);
-    console.log("***");
-    console.log("new Work= "+work);
-    console.log("***");
   }
   theAnswer=String(work[0]);
   updateHistory("equal");

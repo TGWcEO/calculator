@@ -6,62 +6,82 @@ body{
 #calculator{
   display:flex;
   flex-direction:column;
-  border: 8px solid black;
-  border-radius:10px;
-  padding:10px;
+  border: 8px solid blue;
+  border-radius:18px;
+  padding:4px;
+  height:240px;
+  width:170px;
+  justify-content:space-around;
+  align-items:stretch;
+  background-color:black;
 }
 #display{
+  margin-top:6.5px;
   height:75px;
   display:flex;
   flex-direction:column;
-  justify-content:space-evenly;
+  justify-content:space-around;
   align-items:stretch;
+}
+#history,#current{
+  background-color:lightgreen;
 }
 #history{
   font-size:20px;
   display:flex;
   justify-content:flex-end;
-  background-color:#DDDDDD;
-  margin:0px 1px 0px 1px;
+  margin:3px 1px 2px 1px;
   padding-right:5px;
+  border-radius:7px;
 }
 #current{
   font-size:45px;
   display:flex;
   justify-content:flex-end;
-  background-color:#DDDDDD;
-  margin:2px 1px 1px 1px;
+  margin:2px 1px 10px 1px;
   padding-right:5px;
+  border-radius:7px;
 }
 #buttons{
   display:flex;
   flex-direction:column;
-  justify-items:space-between;
+  justify-content:space-between;
+  align-items:stretch;
+  flex:4;
 }
 #row1{
   display:flex;
+  flex:2;
 }
 #row2{
   display:flex;
+  flex:2;
 }
 #row3{
   display:flex;
+  flex:2;
 }
 #row4{
   display:flex;
+  flex:2;
 }
 #row5{
   display:flex;
+  flex:2;
 }
 button{
   display:flex;
   flex:1;
+  color:green;
   font-size:15px;
-  margin:1px;
+  font-weight:900;
+  margin:2px;
   padding:2px;
   justify-content:center;
+  background-color:#DDDDDD;
+  border-radius:7px;
 }
 #zeroButton{
-  flex:2.25;
+  flex:2.35;
 }
 

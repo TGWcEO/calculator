@@ -1,5 +1,6 @@
 /*javascripts goes here*/
-//create buttons
+
+/*create buttons*/
 const history=document.getElementById("history");
 const current=document.getElementById("current");
 const zero=document.getElementById("zeroButton");
@@ -22,7 +23,7 @@ const plus=document.getElementById("plusButton");
 const decimal=document.getElementById("decimalButton");
 const equal=document.getElementById("equalButton");
 
-//functions manipulate and correctly organize the display
+/*functions to manipulate and correctly organize the display*/
 let historyDisplay="0";
 let currentDisplay="0";
 let defaultDisplay=0;
@@ -32,8 +33,14 @@ function updateDisplay(){
   if(currentDisplay[0]==="0"&&currentDisplay[1]!=null){
     currentDisplay=currentDisplay.substring(1);
   }
-  history.textContent=historyDisplay;
-  current.textContent=currentDisplay;
+  if(historyDisplay.length>21){//do nothing
+  }else{
+    history.textContent=historyDisplay;
+  }
+  if(currentDisplay.length>7){//do nothing
+  }else{
+    current.textContent=currentDisplay;
+  }
 }
 function updateHistory(input){
   if(input==="equal"){
@@ -67,7 +74,7 @@ function updateHistory(input){
   updateDisplay();
 }
 
-//number button listeners
+/*number button listeners*/
 zero.addEventListener('click',()=>{
   updateCurrent("0");
 });
@@ -99,7 +106,7 @@ nine.addEventListener('click',()=>{
   updateCurrent("9");
 });
 
-//math button listeners
+/*math button listeners*/
 ac.addEventListener('click',()=>{
   if(currentDisplay==="0"){
     historyDisplay="0";
@@ -132,18 +139,18 @@ plus.addEventListener('click',()=>{
   updateHistory(" + ");
 });
 decimal.addEventListener('click',()=>{
-  //if statement prevents more than one decimal being used
   if(!currentDisplay.includes(".")){
     currentDisplay=currentDisplay.concat(".");
     updateDisplay();
   }
 });
+
+/*calculate*/
 equal.addEventListener('click',()=>{
   historyDisplay=historyDisplay.concat(currentDisplay);
   let work=historyDisplay.split(" ");
   let pos=0;
   let ans=0;
-  //these next 5 while statements calculate the equation
   while(work.includes("%")){
     pos=work.indexOf("%");
     ans=work[pos-1]*(work[pos+1]/100);
